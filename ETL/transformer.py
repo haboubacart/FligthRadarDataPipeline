@@ -1,4 +1,5 @@
-
+from logger import setup_logger
+logger = setup_logger()
 
 #<(LECO) A Coruna Airport - Altitude: 326 - Latitude: 43.302059 - Longitude: -8.37725> => ['LECO', 'A Coruna Airport', '326', '43.302059', '', '8.37725']
 #traitement suppelementaire : ['LECO', 'A Coruna Airport', '326', '43.302059', '', '8.37725'] ==> ['LECO', 'A Coruna Airport', '326', '43.302059', '-8.37725']
@@ -42,3 +43,4 @@ def extract_subzones(zone, parent_zone=None):
             subzone_data.extend(extract_subzones(subzone_details['subzones'], subzone_name))
     return subzone_data
 
+logger.info('INFO')

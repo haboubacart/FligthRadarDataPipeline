@@ -2,6 +2,9 @@ import pandas as pd
 from transformer import clean_flight_or_airport
 from transformer import add_airline_fligths_to_table
 from transformer import extract_subzones
+from logger import setup_logger
+
+logger = setup_logger()
 
 
 def get_airlines_data(fr_api):

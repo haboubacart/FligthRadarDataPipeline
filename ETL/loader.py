@@ -6,7 +6,9 @@ from extractor import get_airports_data
 from extractor import get_zones_data
 from extractor import get_subzones_data
 from extractor import get_flights_data
+from logger import setup_logger
 
+logger = setup_logger()
 
 def create_folder_if_not_exists(data_folder):   
     created_folder = 'Data_extracted/'+ data_folder + '/tech_year='+str(datetime.date.today()).split('-')[0]+'/tech_month='+str(datetime.date.today()).split('-')[1]+ '/tech_day='+str(datetime.date.today())+'/'

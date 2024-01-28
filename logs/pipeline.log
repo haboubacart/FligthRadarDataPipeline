@@ -1,0 +1,3 @@
+{"timestamp": "2024-01-28 21:07:19,818", "level": "INFO", "message": "INFO", "module": "transformer", "line": 46, "pathname": "c:\\Users\\habou\\Desktop\\python\\Data engineering\\FligthRadarDataPipeline\\ETL\\transformer.py"}
+{"timestamp": "2024-01-28 21:11:55,879", "level": "INFO", "message": "INFO", "module": "transformer", "line": 46, "pathname": "c:\\Users\\habou\\Desktop\\python\\Data engineering\\FligthRadarDataPipeline\\ETL\\transformer.py"}
+{"timestamp": "2024-01-28 21:12:04,426", "level": "INFO", "message": "INFO", "module": "transformer", "line": 46, "pathname": "c:\\Users\\habou\\Desktop\\python\\Data engineering\\FligthRadarDataPipeline\\ETL\\transformer.py"}
