@@ -4,7 +4,7 @@ import os
 
 
 
-def setup_logger(log_file='FligthRadarDataPipeline/logs/pipeline.log'):
+def setup_logger(log_file='logs/pipeline.log'):
     os.makedirs(os.path.dirname(log_file), exist_ok=True)
     file_handler = logging.FileHandler(log_file)
     file_handler.setLevel(logging.INFO)

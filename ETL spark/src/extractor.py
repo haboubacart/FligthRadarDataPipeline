@@ -2,11 +2,14 @@ from logger import setup_logger
 import json
 import time
 from FlightRadar24 import FlightRadar24API
-from loader import save_data_txt
-from loader import save_data_json
+from loader import save_data_to_local
+from loader import save_data_to_minio
+from setup_minio import setup_minio_client
 
+minio_client = setup_minio_client()
 logger = setup_logger()
 
+#Exception as e: pour etre plus specifique
 
 def extract_airlines_data(fr_api):
     """ Extraction des données des compagnies aériennes
@@ -35,7 +38,7 @@ def extract_airports_data(fr_api):
         logger.info("Début d'extraction des données des aéroports")
         airports_data = fr_api.get_airports()
         logger.info("Fin d'extraction des données des aéroports")
-        return airports_data
+        return str(airports_data).strip("[]")
     except : 
         logger.error("Une erreur est survenue pendant l'extraction des données aéroports")
         return None
@@ -55,7 +58,7 @@ def extract_flights_data(fr_api, airlines_data):
         flight_details_list = []
         flight_list = []
         nb_max = 5
-        for airline in airlines_data[30:40]:
+        for airline in airlines_data[30:60]:
             airline_flights_list = fr_api.get_flights(airline["ICAO"])
             if len(airline_flights_list) > nb_max:
                 airline_flights_list = airline_flights_list[0:nb_max]           
@@ -68,10 +71,10 @@ def extract_flights_data(fr_api, airlines_data):
                 flight_details_list.append(flight_origin + "#" + flight_destination)
                 flight_list.append(flight)
         logger.info("Fin d'extraction des données de vols")
-        return (flight_list, flight_details_list)
+        return (str(flight_list).strip("[]"), str(flight_details_list).strip("[]"))
     except : 
         logger.info("Une erreur est survenue pendant l'extraction des données de vols")
-        return None
+        return (None, None)
     
     
 def exract_zones_data(fr_api):
@@ -90,30 +93,53 @@ def exract_zones_data(fr_api):
         logger.info("Une erreur est survenue pendant l'extraction des données des zones")
         return None
 
-def extract_and_save_data():
+
+def save_all_data_to_local(airlines_data, flights_data, flight_details, airports_data, zones_data, data_layer):  
+    try :
+        save_data_to_local(flights_data, "Flights", data_layer, "txt")
+        save_data_to_local(flight_details, "Flights_details", data_layer, "txt")
+
+
+        logger.info("Données de vols chargées avec succès dans la rawzone")
+
+        save_data_to_local(airlines_data, "Airlines", data_layer, "json")
+        logger.info("Données des compagnies aériennes chargées avec succès dans la rawzone")
+
+        save_data_to_local(zones_data, "Zones", data_layer, "json")
+        logger.info("Données des zones chargées avec succès dans la rawzone")
+
+        #save_data_to_local(airports_data, "Airports", data_layer, "txt")
+        logger.info("Données des aéroports chargées avec succès dans la rawzone")
+    except :
+        logger.error("Une erreur est survenue lors du chargement des données dans la rawzone")
+    
+
+
+def save_all_data_to_minio(airlines_data, flights_data, flight_details, airports_data, zones_data, data_layer):  
+    try :
+        save_data_to_minio(minio_client, data_layer, "Flights", flights_data, "txt")
+        save_data_to_minio(minio_client, data_layer, "Flights_details", flight_details, "txt")
+        logger.info("Données de vols chargées avec succès dans la rawzone")
+
+        save_data_to_minio(minio_client, data_layer, "Airlines", json.dumps(airlines_data), "json")
+        logger.info("Données des compagnies aériennes chargées avec succès dans la rawzone")
+
+        save_data_to_minio(minio_client, data_layer, "Zones", json.dumps(zones_data), "json")
+        logger.info("Données des zones chargées avec succès dans la rawzone")
+
+        save_data_to_minio(minio_client, data_layer, "Airports", airports_data, "txt")
+        logger.info("Données des aéroports chargées avec succès dans la rawzone")
+        
+    except  Exception as e :
+        print(e)
+        logger.error("Une erreur est survenue lors du chargement des données dans la rawzone")
+
+if __name__ == "__main__":
     fr_api = FlightRadar24API()
     airlines_data = extract_airlines_data(fr_api)
     (flights_data, flight_details) = extract_flights_data(fr_api, airlines_data)
     airports_data = extract_airports_data(fr_api)
     zones_data = exract_zones_data(fr_api)
-    
-    try :
-        save_data_txt(flights_data, "Flights", "rawzone")
-        save_data_txt(flight_details, "Flights_details", "rawzone")
-        logger.info("Données de vols chargées avec succès dans la rawzone")
 
-        save_data_json(airlines_data, "Airlines", "rawzone")
-        logger.info("Données des compagnies aériennes chargées avec succès dans la rawzone")
-
-        save_data_json(zones_data, "Zones", "rawzone")
-        logger.info("Données des zones chargées avec succès dans la rawzone")
-
-        save_data_txt(airports_data, "Airports", "rawzone")
-        logger.info("Données des aéroports chargées avec succès dans la rawzone")
-
-        
-    except :
-        logger.error("Une erreur est survenue lors du chargement des données dans la rawzone")
-    
-    
-extract_and_save_data()
+    #save_all_data_to_local(airlines_data, flights_data, flight_details, airports_data, zones_data, "silver") 
+    save_all_data_to_minio(airlines_data, flights_data, flight_details, airports_data, zones_data, "rawzone")
