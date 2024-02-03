@@ -1,0 +1,5 @@
+pandas
+pyarrow
+docker
+python-dotenv
+FlightRadarAPI

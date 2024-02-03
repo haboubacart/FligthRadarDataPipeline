@@ -1,0 +1,8 @@
+{
+  "Zones": "Zones/tech_year=2024/tech_month=02/tech_day=2024-02-03/Zones202402032006.json",
+  "Flights": "Flights/tech_year=2024/tech_month=02/tech_day=2024-02-03/Flights202402032006.txt",
+  "Flights_details": "Flights_details/tech_year=2024/tech_month=02/tech_day=2024-02-03/Flights_details202402032006.txt",
+  "Airlines": "Airlines/tech_year=2024/tech_month=02/tech_day=2024-02-03/Airlines202402032006.json",
+  "Airports": "Airports/tech_year=2024/tech_month=02/tech_day=2024-02-03/Airports202402032006.txt",
+  "Minio_IP_Adress": "172.22.0.3"
+}

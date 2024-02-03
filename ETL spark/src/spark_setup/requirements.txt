@@ -1,4 +1,0 @@
-pandas
-pyarrow
-docker
-python-dotenv

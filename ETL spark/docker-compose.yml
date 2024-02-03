@@ -51,7 +51,9 @@ services:
       - "9090:8080"
       - "7077:7077"
     volumes:
-      - ./src/spark_setup/:/spark/data
+      - ./src/:/spark/data
+    networks:
+      - spark_minio
 
   spark-worker-1:
     image: bitnami/spark:latest
@@ -64,7 +66,9 @@ services:
       SPARK_WORKER_MEMORY: 2g
       SPARK_MASTER_URL: spark://spark-master:7077
     volumes:
-      - ./src/spark_setup/:/spark/data
+      - ./src/:/spark/data
+    networks:
+      - spark_minio
 
   spark-worker-2:
     image: bitnami/spark:latest
@@ -77,7 +81,9 @@ services:
       SPARK_WORKER_MEMORY: 2g
       SPARK_MASTER_URL: spark://spark-master:7077
     volumes:
-      - ./src/spark_setup/:/spark/data
+      - ./src/:/spark/data
+    networks:
+      - spark_minio
 
   minio:
     image: minio/minio
@@ -91,7 +97,7 @@ services:
       MINIO_ROOT_PASSWORD: test6886
     command: server --console-address ":9001" /data
     networks:
-      - default
+      - spark_minio
       
 volumes:
   minio_storage: {}
@@ -99,3 +105,4 @@ volumes:
 
 networks:
   elk:
+  spark_minio:
