@@ -6,7 +6,7 @@ La pipeline d'extraction est pensée pour être schéduleée et exécuter dans a
  - La partie clean_and_transform : un opérateur Bash qui se charge de soumettre via Spark-Submit la tâche de cleaning et de transformation des données à un clusteur spark composé d'un master et deux worker. A l'issu de ce traitement la donnée est chargée dans le bucket "gold" toujours dans MinIO.
 
 ### Architecture globale cible
-![Architechture cible](./images/archi.png)
+![Architechture cible](./images/architecture.png)
 
 ### NB : 
 La configuration Airflow n'étant pas encore terminée, le projet ne peut s'éxecuter de bout en bout de manière schédulée et automatisée. Néanmoins les deux grandes paties sont testables (exécuter à la main les différents scripts) de manière séquentielles afin de simuler l'extraction puis la nettoyage et la transformation, avec chargement de la données à la fin de chaque étape
