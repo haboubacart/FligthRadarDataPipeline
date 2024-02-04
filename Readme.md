@@ -39,12 +39,13 @@ Nous avons fait le choix de dockeriser tous les services nécéssaires au foncti
  ## Pre-requis sur la machine d'éxécution
   - docker
   - un environnement python (conda ou virtualenv)
-    - lancer la commande d'installation des package python : "pip install -r /requirements.txt"
+    - activer son environnement et lancer la commande d'installation des package python : pip install -r /requirements.txt
 ## Exécution 
- - se placer dans le dossier ETL_spark et lancer les container docker : "docker-compose -f docker-compose.yml up -d"
+ - se placer dans le dossier ETL_spark et lancer les container docker : docker-compose -f docker-compose.yml up -d
 
  - Une fois les services lancés, se connecter à l'interface de MinIO à l'adresse : http://localhost:9001 (login : test et password : test6886) pour générer afin de générer une clé d'accès. 
    - Une fois connecté sur MinIo, dans l'onglet "Accès Key" cliquer sur "Create access key" et en générer une
+   ![Interface de MinIO]("./iamges/airflow.PNG")
    - enfin modifier le fichier .env dans srs/ et remplacer MINIO_ACCESS_KEY et MINIO_SECRET_KEY par ce que vous venez de générer.
 
  - se placer dans src/Extract et lancer l'extraction des données : "python ./extract.py
