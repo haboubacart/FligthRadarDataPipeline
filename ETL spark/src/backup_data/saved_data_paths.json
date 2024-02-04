@@ -1,8 +1,8 @@
 {
-  "Zones": "Zones/tech_year=2024/tech_month=02/tech_day=2024-02-04/Zones202402041317.json",
-  "Flights": "Flights/tech_year=2024/tech_month=02/tech_day=2024-02-04/Flights202402041317.txt",
-  "Flights_details": "Flights_details/tech_year=2024/tech_month=02/tech_day=2024-02-04/Flights_details202402041317.txt",
-  "Airlines": "Airlines/tech_year=2024/tech_month=02/tech_day=2024-02-04/Airlines202402041317.json",
-  "Airports": "Airports/tech_year=2024/tech_month=02/tech_day=2024-02-04/Airports202402041317.txt",
+  "Zones": "Zones/tech_year=2024/tech_month=02/tech_day=2024-02-04/Zones202402041338.json",
+  "Flights": "Flights/tech_year=2024/tech_month=02/tech_day=2024-02-04/Flights202402041338.txt",
+  "Flights_details": "Flights_details/tech_year=2024/tech_month=02/tech_day=2024-02-04/Flights_details202402041338.txt",
+  "Airlines": "Airlines/tech_year=2024/tech_month=02/tech_day=2024-02-04/Airlines202402041338.json",
+  "Airports": "Airports/tech_year=2024/tech_month=02/tech_day=2024-02-04/Airports202402041338.txt",
   "Minio_IP_Adress": "192.168.48.3"
 }

@@ -101,6 +101,16 @@ def exract_zones_data(fr_api):
 
 
 def save_all_data_to_local(airlines_data, flights_data, flight_details, airports_data, zones_data, data_layer):  
+    """_summary_
+
+    Args:
+        airlines_data (_type_): _description_
+        flights_data (_type_): _description_
+        flight_details (_type_): _description_
+        airports_data (_type_): _description_
+        zones_data (_type_): _description_
+        data_layer (_type_): _description_
+    """
     try :
         save_data_to_local(flights_data, "Flights", data_layer, "txt")
         save_data_to_local(flight_details, "Flights_details", data_layer, "txt")
@@ -122,6 +132,17 @@ def save_all_data_to_local(airlines_data, flights_data, flight_details, airports
 
 
 def save_all_data_to_minio(airlines_data, flights_data, flight_details, airports_data, zones_data, data_layer, backup_file):  
+    """_summary_
+
+    Args:
+        airlines_data (_type_): _description_
+        flights_data (_type_): _description_
+        flight_details (_type_): _description_
+        airports_data (_type_): _description_
+        zones_data (_type_): _description_
+        data_layer (_type_): _description_
+        backup_file (_type_): _description_
+    """
     try :
         save_data_to_minio(minio_client, data_layer, "Flights", flights_data, "txt", backup_file)
         save_data_to_minio(minio_client, data_layer, "Flights_details", flight_details, "txt", backup_file)
@@ -149,8 +170,8 @@ def main():
 
     print("Startiiing !!! ") 
     create_buckets(["rawzone", "gold"], minio_client)
-    save_all_data_to_minio(airlines_data, flights_data, flight_details, airports_data, zones_data, "rawzone", "../backup_data/saved_data_paths.json")
-    add_info_to_json("../backup_data/saved_data_paths.json", "Minio_IP_Adress", get_container_ip("etlspark-minio-1", "spark_minio"))
+    save_all_data_to_minio(airlines_data, flights_data, flight_details, airports_data, zones_data, "rawzone", "../Backup_data/saved_data_paths.json")
+    add_info_to_json("../Backup_data/saved_data_paths.json", "Minio_IP_Adress", get_container_ip("etlspark-minio-1", "spark_minio"))
     print("Done !!! ")
 
 main()
