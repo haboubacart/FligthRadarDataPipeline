@@ -2,10 +2,8 @@ import os
 from io import BytesIO
 import json
 import datetime
-from logger import setup_logger
 import docker
 
-logger = setup_logger()
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")[:-8]
 
 def get_container_ip(container_name, network):

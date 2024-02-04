@@ -1,17 +1,18 @@
 version: '3.6'
+
 services:
   Elasticsearch:
     image: elasticsearch:7.16.2
     container_name: elasticsearch
     restart: always
     volumes:
-    - elastic_data:/usr/share/elasticsearch/data/
+      - elastic_data:/usr/share/elasticsearch/data/
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      discovery.type: single-node    
+      discovery.type: single-node
     ports:
-    - '9200:9200'
-    - '9300:9300'
+      - '9200:9200'
+      - '9300:9300'
     networks:
       - elk
 
@@ -20,12 +21,12 @@ services:
     container_name: logstash
     restart: always
     volumes:
-    - ./logstash/:/logstash_dir
+      - ./logstash/:/logstash_dir
     command: logstash -f /logstash_dir/logstash.conf 
     depends_on:
       - Elasticsearch
     ports:
-    - '9600:9600'
+      - '9600:9600'
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"    
     networks:
@@ -36,7 +37,7 @@ services:
     container_name: kibana
     restart: always       
     ports:
-    - '5601:5601'
+      - '5601:5601'
     environment:
       - ELASTICSEARCH_URL=http://elasticsearch:9200  
     depends_on:
@@ -45,8 +46,9 @@ services:
       - elk
       
   spark-master:
-    image: bitnami/spark:latest
-    command: bin/spark-class org.apache.spark.deploy.master.Master
+    build:
+      context: .
+      dockerfile: Dockerfile-spark
     ports:
       - "9090:8080"
       - "7077:7077"
@@ -56,8 +58,9 @@ services:
       - spark_minio
 
   spark-worker-1:
-    image: bitnami/spark:latest
-    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    build:
+      context: .
+      dockerfile: Dockerfile-spark
     depends_on:
       - spark-master
     environment:
@@ -71,8 +74,9 @@ services:
       - spark_minio
 
   spark-worker-2:
-    image: bitnami/spark:latest
-    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    build:
+      context: .
+      dockerfile: Dockerfile-spark
     depends_on:
       - spark-master
     environment:

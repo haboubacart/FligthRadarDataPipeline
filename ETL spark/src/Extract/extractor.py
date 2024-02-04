@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../Logger')
 from logger import setup_logger
 import json
 from FlightRadar24 import FlightRadar24API
@@ -138,16 +140,19 @@ def save_all_data_to_minio(airlines_data, flights_data, flight_details, airports
         print(e)
         logger.error("Une erreur est survenue lors du chargement des données dans la rawzone")
 
-if __name__ == "__main__":
+def main():
     fr_api = FlightRadar24API()
     airlines_data = extract_airlines_data(fr_api)
     (flights_data, flight_details) = extract_flights_data(fr_api, airlines_data)
     airports_data = extract_airports_data(fr_api)
     zones_data = exract_zones_data(fr_api)
 
-    #save_all_data_to_local(airlines_data, flights_data, flight_details, airports_data, zones_data, "silver") 
+    print("Startiiing !!! ") 
     create_buckets(["rawzone", "gold"], minio_client)
     save_all_data_to_minio(airlines_data, flights_data, flight_details, airports_data, zones_data, "rawzone", "../backup_data/saved_data_paths.json")
     add_info_to_json("../backup_data/saved_data_paths.json", "Minio_IP_Adress", get_container_ip("etlspark-minio-1", "spark_minio"))
+    print("Done !!! ")
+
+main()
     
     

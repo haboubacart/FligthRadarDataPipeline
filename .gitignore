@@ -1,0 +1,21 @@
+# Fichiers Python compilés
+__pycache__/
+
+# Fichiers de sauvegarde de l'éditeur
+*.bak
+*.swp
+*~
+
+# Environnements virtuels
+venv/
+env/
+ENV/
+
+# Fichiers de dépendances
+*.pyc
+*.pyo
+*.egg-info
+.idea/
+
+# Fichiers de configuration locaux
+*.local

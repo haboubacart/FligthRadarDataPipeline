@@ -2,7 +2,7 @@ import logging
 import json
 import os
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-def setup_logger(log_file='logs/pipeline.log'):
+def setup_logger(log_file='../ETL_Logs/pipeline.log'):
     os.makedirs(os.path.dirname(log_file), exist_ok=True)
     file_handler = logging.FileHandler(log_file)
     file_handler.setLevel(logging.INFO)

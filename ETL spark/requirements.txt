@@ -1,5 +1,7 @@
 pandas
 pyarrow
 docker
+minio
 python-dotenv
 FlightRadarAPI
+apache-airflow
