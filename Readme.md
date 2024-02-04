@@ -51,14 +51,14 @@ Nous avons fait le choix de dockeriser tous les services nécéssaires au foncti
  - se placer dans  "ETL spark/src/Extract"et lancer l'extraction des données : python ./extractor.py
  
     Voici ce à quoi s'attendre après cette étape : 
-    ![Les deux buckets créés](./images/extract1.PNG)
+    ![Les deux buckets créés](./images/extract1.png)
 
-    ![Les données extraites](./images/extract2.PNG)
+    ![Les données extraites](./images/extract2.png)
 
  - Une fois terminé, se placer dans "ETL spark/src/ et lancer le cleaning et la ransformation ds données : python ./submit_task_to_spark.py. Ce script envoie la tâche à éxécuter au cluster spark.
- 
+
     La partie gold doit ressembler à ceci :
-    ![Les données extraites](./images/extract2.PNG)
+    ![Les données extraites](./images/extract2.png)
 
 
   
