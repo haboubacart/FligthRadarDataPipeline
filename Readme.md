@@ -45,11 +45,21 @@ Nous avons fait le choix de dockeriser tous les services nécéssaires au foncti
 
  - Une fois les services lancés, se connecter à l'interface de MinIO à l'adresse : http://localhost:9001 (login : test et password : test6886) pour générer afin de générer une clé d'accès. 
    - Une fois connecté sur MinIo, dans l'onglet "Accès Key" cliquer sur "Create access key" et en générer une
-   ![Interface de MinIO]("./images/airflow.PNG")
+   ![Interface de MinIO](./images/airflow.PNG)
    - enfin modifier le fichier .env dans srs/ et remplacer MINIO_ACCESS_KEY et MINIO_SECRET_KEY par ce que vous venez de générer.
 
  - se placer dans  "ETL spark/src/Extract"et lancer l'extraction des données : python ./extractor.py
+ 
+    Voici ce à quoi s'attendre après cette étape : 
+    ![Les deux buckets créés](./images/extract1.PNG)
+
+    ![Les données extraites](./images/extract2.PNG)
+
  - Une fois terminé, se placer dans "ETL spark/src/ et lancer le cleaning et la ransformation ds données : python ./submit_task_to_spark.py. Ce script envoie la tâche à éxécuter au cluster spark.
+ 
+    La partie gold doit ressembler à ceci :
+    ![Les données extraites](./images/extract2.PNG)
+
 
   
 
