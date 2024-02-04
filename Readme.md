@@ -1,10 +1,14 @@
 
-La pipeline d'extraction est pensé pour être schéduleée et exécuter dans airflow et contien deux grandes étapes qui représenteront chacune une task du dag ETL
+## Contexte et objectif
+La pipeline d'extraction est pensée pour être schéduleée et exécuter dans airflow et contien deux grandes étapes qui représenteront chacune une task du dag ETL
  - La partie extraction : un opérateur Python qui se charge d'éxécuter le script python d'extraction des données et de les charger dans le bucket "rawzone" dans MinIO"
 
  - La partie clean_and_transform : un opérateur Bash qui se charge de soumettre via Spark-Submit la tâche de cleaning et de transformation des données à un clusteur spark composé d'un master et deux worker. A l'issu de ce traitement la donnée est chargée dans le bucket "gold" toujours dans MinIO.
 
-## NB : 
+### Architecture globale cible
+![Architechture cible](./images/archi.png)
+
+ ## NB : 
 La configuration Airflow n'étant pas encore terminée, le projet ne peut s'éxecuter de bout en bout de manière schédulée et automatisée. Néanmoins les deux grandes paties sont testables (exécuter à la main les différents scripts) de manière séquentielles afin de simuler l'extraction puis la nettoyage et la transformation, avec chargement de la données à la fin de chaque étape
 
 # Présenation de l'architecture du projet
@@ -46,7 +50,7 @@ Nous avons fait le choix de dockeriser tous les services nécéssaires au foncti
  - Une fois les services lancés, se connecter à l'interface de MinIO à l'adresse : http://localhost:9001 (login : test et password : test6886) pour générer afin de générer une clé d'accès. 
    - Une fois connecté sur MinIo, dans l'onglet "Accès Key" cliquer sur "Create access key" et en générer une
    ![Interface de MinIO](./images/airflow.png)
-   - enfin modifier le fichier .env dans srs/ et remplacer MINIO_ACCESS_KEY et MINIO_SECRET_KEY par ce que vous venez de générer.
+   - enfin modifier le fichier .env dans src/ et remplacer MINIO_ACCESS_KEY et MINIO_SECRET_KEY par ce que vous venez de générer.
 
  - se placer dans  "ETL spark/src/Extract"et lancer l'extraction des données : python ./extractor.py
  
@@ -63,6 +67,7 @@ Nous avons fait le choix de dockeriser tous les services nécéssaires au foncti
     Les données extraites dans gold
     ![Les données extraites](./images/transform.png)
 
+## Modélisation de la données 
 
   
 
