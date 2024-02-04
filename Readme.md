@@ -8,7 +8,7 @@ La pipeline d'extraction est pensée pour être schéduleée et exécuter dans a
 ### Architecture globale cible
 ![Architechture cible](./images/archi.png)
 
- ## NB : 
+### NB : 
 La configuration Airflow n'étant pas encore terminée, le projet ne peut s'éxecuter de bout en bout de manière schédulée et automatisée. Néanmoins les deux grandes paties sont testables (exécuter à la main les différents scripts) de manière séquentielles afin de simuler l'extraction puis la nettoyage et la transformation, avec chargement de la données à la fin de chaque étape
 
 # Présenation de l'architecture du projet
